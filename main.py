@@ -37,9 +37,9 @@ def create_member_string(after):
   if after.channel is not None:
     for member in after.channel.members:
       members.append(member.name)
-      if len(members) == 1:
-        return f":satellite: 参加者は {', '.join(members)} だけです。誰か入ってあげて!!"
-      return f":satellite: 現在の参加者は {', '.join(members)} です。賑わってますね!"
+    if len(members) == 1:
+      return f":satellite: 参加者は {', '.join(members)} だけです。誰か入ってあげて!!"
+    return f":satellite: 現在の参加者は {', '.join(members)} です。賑わってますね!"
   else:
     return f":satellite: 現在の参加者はいません :busts_in_silhouette:"
 
