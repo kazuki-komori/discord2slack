@@ -2,6 +2,10 @@ import json
 import os
 from datetime import datetime, timedelta
 
+# from dotenv import load_dotenv
+
+# load_dotenv()
+
 import discord
 import requests
 
@@ -23,7 +27,7 @@ async def on_voice_state_update(member, before, after):
     if before.channel is None:
       msg = f":small_blue_diamond: {now:%m/%d-%H:%M}\n {after.channel} チャンネルに {member.name} が参加しました。\n {create_member_string(after)}\n"
     elif after.channel is None:
-      msg = f":small_red_triangle_down: {now:%m/%d-%H:%M}\n {before.channel} チャンネルから {member.name} が退出しました。\n {create_member_string(after)}\n"
+      msg = f":small_red_triangle_down: {now:%m/%d-%H:%M}\n {before.channel} チャンネルから {member.name} が退出しました。\n {create_member_string(before)}\n"
     else:
       msg = f":small_orange_diamond: {now:%m/%d-%H:%M}\n {member.name} が {before.channel} チャンネルから {after.channel} チャンネルに移動しました。\n {create_member_string(after)}\n"
     send_to_slack(msg)
@@ -31,8 +35,8 @@ async def on_voice_state_update(member, before, after):
 def create_member_string(after):
   members = []
   if after.channel is not None:
-      for member in after.channel.members:
-        members.append(member.name)
+    for member in after.channel.members:
+      members.append(member.name)
       if len(members) == 1:
         return f":satellite: 参加者は {', '.join(members)} だけです。誰か入ってあげて!!"
       return f":satellite: 現在の参加者は {', '.join(members)} です。賑わってますね!"
